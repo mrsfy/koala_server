@@ -11,7 +11,6 @@ import org.jongo.marshall.jackson.oid.MongoObjectId;
 public class User {
 
     @MongoId
-    @MongoObjectId
     private String id;
 
     private String fullName;

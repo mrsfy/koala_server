@@ -8,6 +8,7 @@ import data.user.User;
 import data.user.UsersRepository;
 import domain.SocketListener;
 import domain.houses.GetAllHousesListener;
+import domain.houses.GetMyOwnPropertiesListener;
 import domain.houses.RemoveHouseListener;
 import domain.houses.SaveHouseListener;
 import domain.authorization.LoginListener;
@@ -50,6 +51,7 @@ public class App {
         addListener("SAVE_HOUSE", new SaveHouseListener());
         addListener("REMOVE_HOUSE", new RemoveHouseListener());
         addListener("GET_ALL_HOUSES", new GetAllHousesListener());
+        addListener("GET_MY_OWN_PROPERTIES", new GetMyOwnPropertiesListener());
 
 
         server.start();

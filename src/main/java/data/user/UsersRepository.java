@@ -1,8 +1,11 @@
 package data.user;
 
+import com.mongodb.WriteResult;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
 import rx.Observable;
+
+import java.util.UUID;
 
 /**
  * Created by mrsfy on 03-Dec-16.
@@ -28,17 +31,18 @@ public class UsersRepository {
 
     private MongoCollection users;
 
-    public Observable<User> findById(String id) {
-        return Observable.just(users.findOne(id).as(User.class));
-    }
-
     public Observable<User> findByUsernameAndPassword(String username, String password) {
         return Observable.just(users.findOne("{username: #, password: #}", username, password).as(User.class));
     }
 
     public Observable<Void> save(User user) {
+        if (user.getId() == null)
+            user.setId(UUID.randomUUID().toString());
+
         return Observable.create(subscriber -> {
-            users.save(user);
+            WriteResult wr = users.save(user);
+            System.out.println("res");
+            System.out.println(wr);
             subscriber.onCompleted();
         });
     }

@@ -13,7 +13,6 @@ import java.util.ArrayList;
  */
 public class GetAllHousesListener extends SocketListener<Void> {
 
-
     @Override
     public void onData(SocketIOClient client, Void aVoid) {
 

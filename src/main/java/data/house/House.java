@@ -12,8 +12,8 @@ import org.jongo.marshall.jackson.oid.MongoObjectId;
 public class House {
 
 
+
     @MongoId
-    @MongoObjectId
     private String id;
 
     private User seller;
@@ -190,6 +190,10 @@ public class House {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public User getSeller() {

@@ -3,6 +3,7 @@ package domain.authorization;
 import com.corundumstudio.socketio.SocketIOClient;
 import data.user.User;
 import data.user.UsersRepository;
+import domain.DefaultSubscriber;
 import domain.SocketListener;
 
 
@@ -20,8 +21,13 @@ public class RegisterListener extends SocketListener<User> {
         else if (UsersRepository.getInstance().emailExists(user.getEmail()))
             client.sendEvent("REGISTER_RESULT", "EMAIL_EXISTS");
         else {
-            UsersRepository.getInstance().save(user);
-            client.sendEvent("REGISTER_RESULT", "Register Successful!");
+            System.out.println(user);
+            UsersRepository.getInstance().save(user).subscribe(new DefaultSubscriber<Void>(){
+                @Override
+                public void onCompleted() {
+                    client.sendEvent("REGISTER_RESULT", "Register Successful!");
+                }
+            });
         }
     }
 
