@@ -5,6 +5,7 @@ import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.listener.DataListener;
 import data.house.House;
 import data.house.HousesRepository;
+import domain.DefaultSubscriber;
 import domain.SocketListener;
 
 /**
@@ -17,8 +18,12 @@ public class SaveHouseListener extends SocketListener<House> {
         System.out.println("Save house listener");
 
 
-        HousesRepository.getInstance().save(house);
-        socketIOClient.sendEvent("SAVE_HOUSE_RESULT", "Save house successful!");
+        HousesRepository.getInstance().save(house).subscribe(new DefaultSubscriber<Void>(){
+            @Override
+            public void onCompleted() {
+                socketIOClient.sendEvent("SAVE_HOUSE_RESULT", "Save house successful!");
+            }
+        });
 
     }
 

@@ -40,9 +40,7 @@ public class UsersRepository {
             user.setId(UUID.randomUUID().toString());
 
         return Observable.create(subscriber -> {
-            WriteResult wr = users.save(user);
-            System.out.println("res");
-            System.out.println(wr);
+            users.save(user);
             subscriber.onCompleted();
         });
     }
